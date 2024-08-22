@@ -1,10 +1,15 @@
-import Container from "@/app/_components/container";
-import { HeroPost } from "@/app/_components/hero-post";
-import { Intro } from "@/app/_components/intro";
-import { MoreStories } from "@/app/_components/more-stories";
+import { Locale } from "@/i18n-config";
 import { getAllPosts } from "@/lib/api";
+import Container from "./_components/container";
+import { HeroPost } from "./_components/hero-post";
+import { Intro } from "./_components/intro";
+import { MoreStories } from "./_components/more-stories";
 
-export default function Index() {
+export default function Index({
+  params: { lang },
+}: {
+  params: { lang: Locale };
+}) {
   const allPosts = getAllPosts();
 
   const heroPost = allPosts[0];
