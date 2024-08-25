@@ -1,15 +1,8 @@
-import { type Author } from "./author";
+import { Content } from "./content";
 
 export type Post = {
   slug: string;
-  title: string;
-  date: string;
-  coverImage: string;
-  author: Author;
-  excerpt: string;
-  ogImage: {
-    url: string;
+  contents: {
+    [language: string]: Content;
   };
-  content: string;
-  preview?: boolean;
 };
