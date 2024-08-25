@@ -23,14 +23,14 @@ export default async function Index({
         {langContent && (
           <HeroPost
             title={langContent.title}
-            coverUrl={langContent.coverUrl ?? ""}
-            date={langContent.publishedAt}
+            coverUrl={langContent.coverUrl}
+            publishedAt={langContent.publishedAt}
             author={langContent.author}
             slug={heroPost.slug}
             excerpt={langContent.body}
           />
         )}
-        {morePosts.length > 0 && <MoreStories posts={morePosts} />}
+        {morePosts.length > 0 && <MoreStories lang={lang} posts={morePosts} />}
       </Container>
     </main>
   );

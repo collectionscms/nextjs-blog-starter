@@ -23,7 +23,7 @@ export default async function Post({ params }: Params) {
         <article className="mb-32">
           <PostHeader
             title={content.title}
-            coverImage={content.coverUrl ?? ""}
+            coverUrl={content.coverUrl}
             date={content.publishedAt}
             author={content.author}
           />
