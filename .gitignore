@@ -6,3 +6,9 @@ package-lock.json
 
 # Dependency directories
 node_modules/
+
+# Environment variables
+.env
+
+# Development settings
+.vscode/

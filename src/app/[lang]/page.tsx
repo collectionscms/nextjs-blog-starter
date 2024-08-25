@@ -5,14 +5,14 @@ import { HeroPost } from "./_components/hero-post";
 import { Intro } from "./_components/intro";
 import { MoreStories } from "./_components/more-stories";
 
-export default function Index({
+export default async function Index({
   params: { lang },
 }: {
   params: { lang: Locale };
 }) {
-  const allPosts = getAllPosts();
-
+  const allPosts = await getAllPosts();
   const heroPost = allPosts[0];
+  const langContent = heroPost.contents[lang];
 
   const morePosts = allPosts.slice(1);
 
@@ -20,14 +20,16 @@ export default function Index({
     <main>
       <Container>
         <Intro />
-        <HeroPost
-          title={heroPost.title}
-          coverImage={heroPost.coverImage}
-          date={heroPost.date}
-          author={heroPost.author}
-          slug={heroPost.slug}
-          excerpt={heroPost.excerpt}
-        />
+        {langContent && (
+          <HeroPost
+            title={langContent.title}
+            coverUrl={langContent.coverUrl ?? ""}
+            date={langContent.publishedAt}
+            author={langContent.author}
+            slug={heroPost.slug}
+            excerpt={langContent.body}
+          />
+        )}
         {morePosts.length > 0 && <MoreStories posts={morePosts} />}
       </Container>
     </main>

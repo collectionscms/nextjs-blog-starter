@@ -1,36 +1,33 @@
+import { Locale } from "@/i18n-config";
 import { getAllPosts, getPostBySlug } from "@/lib/api";
 import { CMS_NAME } from "@/lib/constants";
-import markdownToHtml from "@/lib/markdownToHtml";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Alert from "../../_components/alert";
 import Container from "../../_components/container";
 import Header from "../../_components/header";
 import { PostBody } from "../../_components/post-body";
 import { PostHeader } from "../../_components/post-header";
 
 export default async function Post({ params }: Params) {
-  const post = getPostBySlug(params.slug);
+  const post = await getPostBySlug(params.slug);
+  const content = post.contents[params.lang];
 
   if (!post) {
     return notFound();
   }
 
-  const content = await markdownToHtml(post.content || "");
-
   return (
     <main>
-      <Alert preview={post.preview} />
       <Container>
         <Header />
         <article className="mb-32">
           <PostHeader
-            title={post.title}
-            coverImage={post.coverImage}
-            date={post.date}
-            author={post.author}
+            title={content.title}
+            coverImage={content.coverUrl ?? ""}
+            date={content.publishedAt}
+            author={content.author}
           />
-          <PostBody content={content} />
+          <PostBody content={content.bodyHtml} />
         </article>
       </Container>
     </main>
@@ -40,29 +37,31 @@ export default async function Post({ params }: Params) {
 type Params = {
   params: {
     slug: string;
+    lang: Locale;
   };
 };
 
-export function generateMetadata({ params }: Params): Metadata {
-  const post = getPostBySlug(params.slug);
+export async function generateMetadata({ params }: Params): Promise<Metadata> {
+  const post = await getPostBySlug(params.slug);
+  const content = post.contents[params.lang];
 
   if (!post) {
     return notFound();
   }
 
-  const title = `${post.title} | Next.js Blog Example with ${CMS_NAME}`;
+  const title = `${content.title} | Next.js Blog Example with ${CMS_NAME}`;
 
   return {
     title,
     openGraph: {
       title,
-      images: [post.ogImage.url],
+      images: content.coverUrl ? [content.coverUrl] : [],
     },
   };
 }
 
 export async function generateStaticParams() {
-  const posts = getAllPosts();
+  const posts = await getAllPosts();
 
   return posts.map((post) => ({
     slug: post.slug,
