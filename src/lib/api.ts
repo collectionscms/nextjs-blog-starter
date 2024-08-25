@@ -1,28 +1,25 @@
 import { Post } from "@/interfaces/post";
-import fs from "fs";
-import matter from "gray-matter";
-import { join } from "path";
 
-const postsDirectory = join(process.cwd(), "_posts");
+const endpoint = process.env.COLLECTIONS_API_ENDPOINT;
+const key = process.env.COLLECTIONS_API_KEY;
 
-export function getPostSlugs() {
-  return fs.readdirSync(postsDirectory);
+export async function getPostBySlug(slug: string): Promise<Post> {
+
+  const res = await fetch(`${endpoint}/api/v1/posts/${slug}`, {
+    headers: {
+      "Authorization": `Bearer ${key}`,
+    }
+  });
+  const data = await res.json();
+  return data.post;
 }
 
-export function getPostBySlug(slug: string) {
-  const realSlug = slug.replace(/\.md$/, "");
-  const fullPath = join(postsDirectory, `${realSlug}.md`);
-  const fileContents = fs.readFileSync(fullPath, "utf8");
-  const { data, content } = matter(fileContents);
-
-  return { ...data, slug: realSlug, content } as Post;
-}
-
-export function getAllPosts(): Post[] {
-  const slugs = getPostSlugs();
-  const posts = slugs
-    .map((slug) => getPostBySlug(slug))
-    // sort posts by date in descending order
-    .sort((post1, post2) => (post1.date > post2.date ? -1 : 1));
-  return posts;
+export async function getAllPosts(): Promise<Post[]> {
+  const res = await fetch(`${endpoint}/api/v1/posts`, {
+    headers: {
+      "Authorization": `Bearer ${key}`,
+    }
+  });
+  const data = await res.json();
+  return data.posts;
 }
