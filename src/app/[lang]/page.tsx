@@ -5,12 +5,14 @@ import { HeroPost } from "./_components/hero-post";
 import { Intro } from "./_components/intro";
 import { MoreStories } from "./_components/more-stories";
 
+export const revalidate = 300;
+
 export default async function Index({
   params: { lang },
 }: {
   params: { lang: Locale };
 }) {
-  const allPosts = await getAllPosts();
+  const allPosts = await getAllPosts(revalidate);
   const posts = allPosts.filter((post) => post.contents[lang]);
   const heroPost = posts[0];
   const morePosts = posts.slice(1);

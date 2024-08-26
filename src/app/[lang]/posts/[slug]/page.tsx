@@ -15,8 +15,10 @@ type Params = {
   };
 };
 
+export const revalidate = 300;
+
 export default async function Post({ params }: Params) {
-  const post = await getPostBySlug(params.slug);
+  const post = await getPostBySlug(params.slug, revalidate);
   const content = post.contents[params.lang];
 
   if (!post) {
@@ -43,7 +45,7 @@ export default async function Post({ params }: Params) {
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
-  const post = await getPostBySlug(params.slug);
+  const post = await getPostBySlug(params.slug, revalidate);
   const content = post.contents[params.lang];
 
   if (!post) {
@@ -62,7 +64,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
-  const posts = await getAllPosts();
+  const posts = await getAllPosts(revalidate);
 
   return posts.map((post) => ({
     slug: post.slug,
