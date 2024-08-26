@@ -1,9 +1,14 @@
+import { Locale } from "@/i18n-config";
 import Link from "next/link";
 
-const Header = () => {
+type Props = {
+  lang: Locale;
+};
+
+const Header = ({ lang }: Props) => {
   return (
     <h2 className="text-2xl md:text-4xl font-bold tracking-tight md:tracking-tighter leading-tight mb-20 mt-8 flex items-center">
-      <Link href="/" className="hover:underline">
+      <Link href={`/${lang}`} className="hover:underline">
         Blog
       </Link>
       .

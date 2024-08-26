@@ -24,6 +24,7 @@ export function MoreStories({ lang, posts }: Props) {
               author={post.contents[lang].author}
               slug={post.slug}
               excerpt={post.contents[lang].body}
+              lang={lang}
             />
           ) : (
             <></>

@@ -1,3 +1,4 @@
+import { Locale } from "@/i18n-config";
 import { Author } from "@/interfaces/author";
 import Avatar from "./avatar";
 import CoverImage from "./cover-image";
@@ -9,9 +10,10 @@ type Props = {
   coverUrl: string | null;
   date: string;
   author: Author;
+  lang: Locale;
 };
 
-export function PostHeader({ title, coverUrl, date, author }: Props) {
+export function PostHeader({ title, coverUrl, date, author, lang }: Props) {
   return (
     <>
       <PostTitle>{title}</PostTitle>
@@ -20,7 +22,7 @@ export function PostHeader({ title, coverUrl, date, author }: Props) {
       </div>
       {coverUrl && (
         <div className="mb-8 md:mb-16 sm:mx-0">
-          <CoverImage title={title} src={coverUrl} />
+          <CoverImage title={title} src={coverUrl} lang={lang} />
         </div>
       )}
       <div className="max-w-2xl mx-auto">
