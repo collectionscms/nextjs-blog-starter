@@ -11,23 +11,23 @@ export default async function Index({
   params: { lang: Locale };
 }) {
   const allPosts = await getAllPosts();
-  const heroPost = allPosts[0];
-  const langContent = heroPost.contents[lang];
-
-  const morePosts = allPosts.slice(1);
+  const posts = allPosts.filter((post) => post.contents[lang]);
+  const heroPost = posts[0];
+  const morePosts = posts.slice(1);
 
   return (
     <main>
       <Container>
         <Intro />
-        {langContent && (
+        {heroPost && (
           <HeroPost
-            title={langContent.title}
-            coverUrl={langContent.coverUrl}
-            publishedAt={langContent.publishedAt}
-            author={langContent.author}
+            title={heroPost.contents[lang].title}
+            coverUrl={heroPost.contents[lang].coverUrl}
+            publishedAt={heroPost.contents[lang].publishedAt}
+            author={heroPost.contents[lang].author}
             slug={heroPost.slug}
-            excerpt={langContent.body}
+            excerpt={heroPost.contents[lang].body}
+            lang={lang}
           />
         )}
         {morePosts.length > 0 && <MoreStories lang={lang} posts={morePosts} />}

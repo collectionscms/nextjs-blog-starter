@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "typecheck": "tsc -p . --noEmit"
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.5.4",

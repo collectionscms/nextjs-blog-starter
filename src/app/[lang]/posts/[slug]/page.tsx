@@ -8,6 +8,13 @@ import Header from "../../_components/header";
 import { PostBody } from "../../_components/post-body";
 import { PostHeader } from "../../_components/post-header";
 
+type Params = {
+  params: {
+    slug: string;
+    lang: Locale;
+  };
+};
+
 export default async function Post({ params }: Params) {
   const post = await getPostBySlug(params.slug);
   const content = post.contents[params.lang];
@@ -19,13 +26,14 @@ export default async function Post({ params }: Params) {
   return (
     <main>
       <Container>
-        <Header />
+        <Header lang={params.lang} />
         <article className="mb-32">
           <PostHeader
             title={content.title}
             coverUrl={content.coverUrl}
             date={content.publishedAt}
             author={content.author}
+            lang={params.lang}
           />
           <PostBody content={content.bodyHtml} />
         </article>
@@ -33,13 +41,6 @@ export default async function Post({ params }: Params) {
     </main>
   );
 }
-
-type Params = {
-  params: {
-    slug: string;
-    lang: Locale;
-  };
-};
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const post = await getPostBySlug(params.slug);
