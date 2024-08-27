@@ -21,6 +21,6 @@ Follow the steps below to spin up a local dev environment:
 3. Run `cp .env.example .env` and fill out all ENV variables as shown
 4. Run `yarn dev` to start up the dev server
 
-# Notes
+## Notes
 
 `nextjs-blog-starter` uses [Tailwind CSS](https://tailwindcss.com) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3).
