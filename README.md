@@ -4,7 +4,7 @@ This example showcases Next.js's [Static Generation](https://nextjs.org/docs/app
 
 ## Demo
 
-[https://collections-cms.vercel.app/](https://collections-cms.vercel.app/)
+[https://collections-nextjs-blog.vercel.app/](https://collections-nextjs-blog.vercel.app/)
 
 ## Deploy your own
 
