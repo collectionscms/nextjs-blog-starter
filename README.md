@@ -10,7 +10,7 @@ This example showcases Next.js's [Static Generation](https://nextjs.org/docs/app
 
 Using the Deploy button below and connect to the Collections project after adding environment variables.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/collectionscms/nextjs-blog-starter&repository-name=collections-cms&env=COLLECTIONS_API_URL,COLLECTIONS_API_KEY&envDescription=Required%20to%20connect%20the%20app%20with%20WordPress&envLink=https://github.com/collectionscms/nextjs-blog-starter)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/collectionscms/nextjs-blog-starter&repository-name=collections-nextjs-blog&env=COLLECTIONS_API_URL,COLLECTIONS_API_KEY&envDescription=Required%20to%20connect%20the%20app%20with%20WordPress&envLink=https://github.com/collectionscms/nextjs-blog-starter)
 
 ## How to use
 
