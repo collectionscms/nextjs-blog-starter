@@ -1,5 +1,5 @@
 import { Locale } from "@/i18n-config";
-import { getAllPosts, getPostBySlug } from "@/lib/api";
+import { getAllPosts, getContentBySlug } from "@/lib/api";
 import { CMS_NAME } from "@/lib/constants";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -18,10 +18,9 @@ type Params = {
 export const revalidate = 300;
 
 export default async function Post({ params }: Params) {
-  const post = await getPostBySlug(params.slug, revalidate);
-  const content = post.contents[params.lang];
+  const content = await getContentBySlug(params.slug, revalidate);
 
-  if (!post) {
+  if (!content) {
     return notFound();
   }
 
@@ -45,10 +44,9 @@ export default async function Post({ params }: Params) {
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
-  const post = await getPostBySlug(params.slug, revalidate);
-  const content = post.contents[params.lang];
+  const content = await getContentBySlug(params.slug, revalidate);
 
-  if (!post) {
+  if (!content) {
     return notFound();
   }
 
@@ -65,8 +63,9 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 
 export async function generateStaticParams() {
   const posts = await getAllPosts(revalidate);
+  const contents = posts.flatMap((post) => Object.values(post.contents));
 
-  return posts.map((post) => ({
+  return contents.map((post) => ({
     slug: post.slug,
   }));
 }
