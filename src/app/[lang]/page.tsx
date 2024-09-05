@@ -27,7 +27,7 @@ export default async function Index({
             coverUrl={heroPost.contents[lang].coverUrl}
             publishedAt={heroPost.contents[lang].publishedAt}
             author={heroPost.contents[lang].author}
-            slug={heroPost.slug}
+            slug={heroPost.contents[lang].slug}
             excerpt={heroPost.contents[lang].body}
             lang={lang}
           />
