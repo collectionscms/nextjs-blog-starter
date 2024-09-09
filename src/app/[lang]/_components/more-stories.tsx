@@ -17,12 +17,12 @@ export function MoreStories({ lang, posts }: Props) {
         {posts.map((post) =>
           post.contents[lang] ? (
             <PostPreview
-              key={post.slug}
+              key={post.contents[lang].slug}
               title={post.contents[lang].title}
               coverUrl={post.contents[lang].coverUrl}
               publishedAt={post.contents[lang].publishedAt}
               author={post.contents[lang].author}
-              slug={post.slug}
+              slug={post.contents[lang].slug}
               excerpt={post.contents[lang].body}
               lang={lang}
             />
