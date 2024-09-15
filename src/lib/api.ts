@@ -7,7 +7,7 @@ const apiKey = process.env.COLLECTIONS_API_KEY;
 export async function getContentBySlug(
   slug: string,
   revalidate: number
-): Promise<Content> {
+): Promise<Content | null> {
   const res = await fetch(`${apiOrigin}/api/v1/contents/${slug}`, {
     next: { revalidate },
     headers: {
@@ -15,7 +15,7 @@ export async function getContentBySlug(
     },
   });
   const data = await res.json();
-  return data.content;
+  return data?.content || null;
 }
 
 export async function getAllPosts(revalidate: number): Promise<Post[]> {
@@ -26,5 +26,5 @@ export async function getAllPosts(revalidate: number): Promise<Post[]> {
     },
   });
   const data = await res.json();
-  return data.posts;
+  return data?.posts || [];
 }
