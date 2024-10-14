@@ -3,7 +3,7 @@ import { Author } from "./author";
 export type Content = {
   slug: string;
   title: string;
-  excerpt: string;
+  subtitle: string;
   body: string;
   bodyHtml: string;
   coverUrl: string | null;
